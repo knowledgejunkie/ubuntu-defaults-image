@@ -6,9 +6,9 @@
 
 # Examples:
 # To install from ISO
-# ./test-with-qemu.sh ~/path/to/NHSbuntu-gnome-i386-20171009-binary.iso install
+# ./test-with-qemu.sh ~/path/to/NHoS-gnome-i386-20171009-binary.iso install
 # To boot from installed system
-# ./test-with-qemu.sh ~/path/to/NHSbuntu-gnome-i386-20171009-binary.iso boot
+# ./test-with-qemu.sh ~/path/to/NHoS-gnome-i386-20171009-binary.iso boot
 
 # Set variables for script
 TEST_ISO_PATH=$1

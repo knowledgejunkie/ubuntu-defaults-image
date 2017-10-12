@@ -1,4 +1,4 @@
-# NHSbuntu - ubuntu-defaults-image
+# NHoS - ubuntu-defaults-image
 
 Builds ISO of an Ubuntu (/flavor) from a defaults package. This version has added support for repos hosted on packagecloud.io and multiple extra packages.
 
@@ -32,7 +32,7 @@ Specify additional packages `--xpackage packagename`
 
 ## Create NHSbuntu ISOs - command line
 
-Included is the NHSbuntu build helper `build.sh`, a wrapper for ubuntu-defaults-image. You can use this script to create the NHSbuntu ISOs for yourself. It is the same script used by Travis CI to automagically create the NHSbuntu ISOs.
+Included is the NHoS build helper `build.sh`, a wrapper for ubuntu-defaults-image. You can use this script to create the NHoS ISOs for yourself. It is the same script used by Travis CI to automagically create the NHoS ISOs.
 
 ### Usage
 
@@ -60,7 +60,7 @@ docker run --env BUILDARCH=i386 --rm -it -v `pwd`:`pwd` -w `pwd` --name buildi38
 
 ## Travis CI [![Build Status](https://travis-ci.org/NHSbuntu/ubuntu-defaults-image.svg?branch=master)](https://travis-ci.org/NHSbuntu/ubuntu-defaults-image)
 
-In the small hours of the morning Travis gets busy building NHSbuntu ISOs for us.
+In the small hours of the morning Travis gets busy building NHoS ISOs for us.
 
 ## Authors
 

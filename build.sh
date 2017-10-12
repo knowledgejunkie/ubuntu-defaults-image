@@ -1,5 +1,5 @@
 #! /bin/sh
-# Wrapper for NHSbuntu using customised ubuntu-defaults-image
+# Wrapper for NHoS using customised ubuntu-defaults-image
 
 # Usage:
 # Run with sudo -E
@@ -21,16 +21,16 @@ fi
 export BUILD_ISO_ARCH=$BUILDARCH
 export BUILD_ISO_WORKDIR=$BUILDARCH
 export BUILD_ISO_FLAVOUR=$BUILDFLAVOUR
-export BUILD_ISO_FILE="NHSbuntu-$BUILD_ISO_FLAVOUR-$BUILD_ISO_ARCH-$(date +%Y%m%d)"
-export LB_ISO_TITLE=NHSbuntu
-export LB_ISO_VOLUME="NHSbuntu $(date +%Y%m%d)"
+export BUILD_ISO_FILE="NHoS-$BUILD_ISO_FLAVOUR-$BUILD_ISO_ARCH-$(date +%Y%m%d)"
+export LB_ISO_TITLE=NHoS
+export LB_ISO_VOLUME="NHoS $(date +%Y%m%d)"
 
 # Set logging output
 if [ "$BUILDLOG" = "quiet" ]
   then
     export BUILD_LOGGING="quiet"
     export BUILD_LOGSTATE="../$BUILD_ISO_FILE.log"
-    export BUILD_LOGOPTS=">> ../$BUILD_ISO_FILE.log 2>&1"
+    export BUILD_LOGOPTS=">> ../$BUILD_ISO_FILE.log"
     rm -f ../$BUILD_ISO_FILE
   else
     export BUILD_LOGGING="normal"
@@ -79,36 +79,36 @@ echo "INFO: Build started"
 
 # For build - ubuntu-gnome
 if [ "$BUILD_ISO_FLAVOUR" = "gnome" ]; then
-  echo "INFO: Building NHSbuntu - gnome"
+  echo "INFO: Building NHoS - gnome"
   # Start build with options
-  BUILD_ISO_CMD="../ubuntu-defaults-image --ppa nhsbuntu/ppa --ppa libreoffice/ppa --package nhsbuntu-default-settings --arch $BUILD_ISO_ARCH --release xenial --flavor ubuntu-gnome ${BUILD_LOGOPTS}"
+  BUILD_ISO_CMD="../ubuntu-defaults-image --ppa nhsbuntu/ppa --ppa libreoffice/ppa --package nhos-default-settings --arch $BUILD_ISO_ARCH --release xenial --flavor ubuntu-gnome ${BUILD_LOGOPTS}"
   echo "EXEC: $BUILD_ISO_CMD"
   eval $BUILD_ISO_CMD
 fi
 
 # For build - ubuntu-gnome-nightly
 if [ "$BUILD_ISO_FLAVOUR" = "gnome-nightly" ]; then
-  echo "INFO: Building NHSbuntu - gnome-nightly"
+  echo "INFO: Building NHoS - gnome-nightly"
   # Start build with options
-  BUILD_ISO_CMD="../ubuntu-defaults-image --ppa nhsbuntu/ppa --ppa libreoffice/ppa --package nhsbuntu-default-settings --arch $BUILD_ISO_ARCH --release xenial --flavor ubuntu-gnome --repo nhsbuntu/nhsbuntu-default-settings ${BUILD_LOGOPTS}"
+  BUILD_ISO_CMD="../ubuntu-defaults-image --ppa nhsbuntu/ppa --ppa libreoffice/ppa --package nhos-default-settings --arch $BUILD_ISO_ARCH --release xenial --flavor ubuntu-gnome --repo nhsbuntu/nhos-default-settings ${BUILD_LOGOPTS}"
   echo "EXEC: $BUILD_ISO_CMD"
   eval $BUILD_ISO_CMD
 fi
 
-# For build - ubuntu-gnome dev
-if [ "$BUILD_ISO_FLAVOUR" = "gnome-dev" ]; then
-  echo "INFO: Building NHSbuntu - Gnome - Development"
+# For build - ubuntu-gnome test
+if [ "$BUILD_ISO_FLAVOUR" = "gnome-test" ]; then
+  echo "INFO: Building NHoS - Gnome - Test"
   # Start build with options
-  BUILD_ISO_CMD="../ubuntu-defaults-image --package nhsbuntu-default-settings --arch $BUILD_ISO_ARCH --release xenial --flavor ubuntu-gnome --repo nhsbuntu/nhsbuntu-default-settings-dev ${BUILD_LOGOPTS}"
+  BUILD_ISO_CMD="../ubuntu-defaults-image --package nhos-default-settings --arch $BUILD_ISO_ARCH --release xenial --flavor ubuntu-gnome --repo nhsbuntu/nhos-default-settings-test ${BUILD_LOGOPTS}"
   echo "EXEC: $BUILD_ISO_CMD"
-  eval $BUILD_ISO_CMD
+    eval $BUILD_ISO_CMD
 fi
 
 # For build - ubuntu-gnome & cinnamon dev
 if [ "$BUILD_ISO_FLAVOUR" = "cinnamon-dev" ]; then
-  echo "INFO: Building NHSbuntu - Cinnamon - Development"
+  echo "INFO: Building NHoS - Cinnamon - Dev"
   # Start build with options
-  BUILD_ISO_CMD="../ubuntu-defaults-image --ppa embrosyn/cinnamon --package nhsbuntu-default-settings --xpackage cinnamon --arch $BUILD_ISO_ARCH --release xenial --flavor ubuntu-gnome --repo nhsbuntu/nhsbuntu-default-settings-dev ${BUILD_LOGOPTS}"
+  BUILD_ISO_CMD="../ubuntu-defaults-image --ppa embrosyn/cinnamon --package nhos-default-settings --xpackage cinnamon --arch $BUILD_ISO_ARCH --release xenial --flavor ubuntu-gnome --repo nhsbuntu/nhos-default-settings-dev ${BUILD_LOGOPTS}"
   echo "EXEC: $BUILD_ISO_CMD"
   eval $BUILD_ISO_CMD
 fi

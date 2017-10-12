@@ -93,7 +93,7 @@ add_repos () {
     for repo in $REPOS; do
 
         # fetch GPG key from packagecloud
-				wget https://packagecloud.io/$repo/gpgkey -O ${repo##*/}.gpgkey && apt-key --keyring config/archives/ubuntu-defaults.key add ${repo##*/}.gpgkey
+				wget -q https://packagecloud.io/$repo/gpgkey -O ${repo##*/}.gpgkey && apt-key --keyring config/archives/ubuntu-defaults.key add ${repo##*/}.gpgkey
 				rm ${repo##*/}.gpgkey
 
         # add packagecloud apt source
@@ -231,10 +231,10 @@ fi
 # make autobuilds reliable.
 case $ARCH in
     *amd64|*i386)
-	$SUDO apt-get -y install syslinux-themes-ubuntu syslinux-themes-ubuntu-$SUITE gfxboot-theme-ubuntu memtest86+ syslinux || exit 1
+	$SUDO apt-get -qq -y install syslinux-themes-ubuntu syslinux-themes-ubuntu-$SUITE gfxboot-theme-ubuntu memtest86+ syslinux genisoimage || exit 1
 	;;
 esac
-$SUDO apt-get -y install genisoimage
+# $SUDO apt-get -qq -y install genisoimage
 
 rm -rf auto
 mkdir -p auto
@@ -254,8 +254,13 @@ if [ "$COMPONENTS" ]; then
 fi
 
 # Include HTTPS for apt in bootstrap
-sed -i "s/^\\(LB_BOOTSTRAP_INCLUDE=\\).*/\\1\"gnupg libcurl3-gnutls apt-transport-https ca-certificates\"/" \
-config/bootstrap
+sed -i "s/^\\(LB_BOOTSTRAP_INCLUDE=\\).*/\\1\"gnupg libcurl3-gnutls apt-transport-https ca-certificates\"/" config/bootstrap
+
+# Set quiet
+sed -i "s/_QUIET=\"false\"/_QUIET=\"true\"/" config/common
+
+# Set color
+sed -i "s/#_COLOR=\"false\"/_COLOR=\"true\"/" config/common
 
 sed -i "s/^\\(LB_SYSLINUX_THEME=\\).*/\\1\"ubuntu-$SUITE\"/" config/binary
 
