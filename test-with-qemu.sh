@@ -46,7 +46,7 @@ case "$TEST_ACTION" in
     ;;
   boot)
     echo "INFO: Starting QEMU $TEST_ACTION"
-    eval qemu-system-$TEST_CPU_ARCH -enable-kvm -m ${TEST_QEMU_RAM}M -drive file=$TEST_QCOW2_IMG,if=virtio,format=qcow2,media=disk -vga qxl &
+    eval qemu-system-$TEST_CPU_ARCH -enable-kvm -m ${TEST_QEMU_RAM}M -drive file=$TEST_QCOW2_IMG,if=virtio,format=qcow2,media=disk -cdrom $TEST_ISO_PATH -vga qxl &
     ;;
 esac
 
