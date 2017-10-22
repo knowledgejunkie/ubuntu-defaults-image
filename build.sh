@@ -21,9 +21,10 @@ fi
 export BUILD_ISO_ARCH=$BUILDARCH
 export BUILD_ISO_WORKDIR=$BUILDARCH
 export BUILD_ISO_FLAVOUR=$BUILDFLAVOUR
-export BUILD_ISO_FILE="NHoS-$BUILD_ISO_FLAVOUR-$BUILD_ISO_ARCH-$(date +%Y%m%d)"
+export BUILD_ISO_DATE=$(date +%Y%m%d)
+export BUILD_ISO_FILE="NHoS-$BUILD_ISO_FLAVOUR-$BUILD_ISO_ARCH-$BUILD_ISO_DATE"
 export LB_ISO_TITLE=NHoS
-export LB_ISO_VOLUME="NHoS $(date +%Y%m%d)"
+export LB_ISO_VOLUME="NHoS $BUILD_ISO_FLAVOUR $BUILD_ISO_ARCH $BUILD_ISO_DATE"
 
 # Set logging output
 if [ "$BUILDLOG" = "quiet" ]
@@ -131,13 +132,17 @@ BUILD_OUTISO_LIVECD=$(ls -1|grep livecd|grep iso)
 if [ -f "$BUILD_OUTISO_BINARY" ]
   then
     echo "INFO: Found $BUILD_OUTISO_BINARY"
-    echo "INFO: Moving binary ISO file"
+    echo "INFO: Renaming binary ISO file"
     mv $BUILD_OUTISO_BINARY $BUILD_ISO_FILE-binary.iso
     echo "INFO: Generating checksums"
-    md5sum $BUILD_ISO_FILE-binary.iso > $BUILD_ISO_FILE-binary.iso.checksum
-    sha1sum $BUILD_ISO_FILE-binary.iso >> $BUILD_ISO_FILE-binary.iso.checksum
-    sha256sum $BUILD_ISO_FILE-binary.iso >> $BUILD_ISO_FILE-binary.iso.checksum
-    mv $BUILD_ISO_FILE-binary.iso $BUILD_ISO_FILE-binary.iso.checksum ../
+    md5sum $BUILD_ISO_FILE-binary.iso > $BUILD_ISO_FILE-binary.iso.md5sum.txt
+    sha1sum $BUILD_ISO_FILE-binary.iso > $BUILD_ISO_FILE-binary.iso.sha1sum.txt
+    sha256sum $BUILD_ISO_FILE-binary.iso > $BUILD_ISO_FILE-binary.iso.sha256sum.txt
+    BUILD_ISO_FILE_MD5=$(md5sum $BUILD_ISO_FILE-binary.iso|cut -d ' ' -f1)
+    BUILD_ISO_FILE_SHA1=$(sha1sum $BUILD_ISO_FILE-binary.iso|cut -d ' ' -f1)
+    BUILD_ISO_FILE_SHA256=$(sha256sum $BUILD_ISO_FILE-binary.iso|cut -d ' ' -f1)
+    echo "$BUILD_ISO_FILE-binary.iso,$BUILD_ISO_ARCH,$BUILD_ISO_FLAVOUR,$BUILD_ISO_DATE,$BUILD_ISO_FILE_MD5,$BUILD_ISO_FILE_SHA1,$BUILD_ISO_FILE_SHA256" > $BUILD_ISO_FILE-binary.iso.checksum.csv
+    mv $BUILD_ISO_FILE-binary.iso $BUILD_ISO_FILE-binary.iso.checksum.csv $BUILD_ISO_FILE-binary.iso.md5sum.txt $BUILD_ISO_FILE-binary.iso.sha1sum.txt $BUILD_ISO_FILE-binary.iso.sha256sum.txt ../
     BUILD_OUTISO_STATE=true
   else
     echo "INFO: binary ISO file not found"
@@ -147,13 +152,17 @@ fi
 if [ -f "$BUILD_OUTISO_LIVECD" ]
   then
     echo "INFO: Found $BUILD_OUTISO_LIVECD"
-    echo "INFO: Moving livecd ISO file"
+    echo "INFO: Renaming livecd ISO file"
     mv $BUILD_OUTISO_LIVECD $BUILD_ISO_FILE-livecd.iso
     echo "INFO: Generating checksums"
-    md5sum $BUILD_ISO_FILE-livecd.iso > $BUILD_ISO_FILE-livecd.iso.checksum
-    sha1sum $BUILD_ISO_FILE-livecd.iso >> $BUILD_ISO_FILE-livecd.iso.checksum
-    sha256sum $BUILD_ISO_FILE-livecd.iso >> $BUILD_ISO_FILE-livecd.iso.checksum
-    mv $BUILD_ISO_FILE-livecd.iso $BUILD_ISO_FILE-livecd.iso.checksum ../
+    md5sum $BUILD_ISO_FILE-livecd.iso > $BUILD_ISO_FILE-livecd.iso.md5sum.txt
+    sha1sum $BUILD_ISO_FILE-livecd.iso > $BUILD_ISO_FILE-livecd.iso.sha1sum.txt
+    sha256sum $BUILD_ISO_FILE-livecd.iso > $BUILD_ISO_FILE-livecd.iso.sha256sum.txt
+    BUILD_ISO_FILE_MD5=$(md5sum $BUILD_ISO_FILE-livecd.iso|cut -d ' ' -f1)
+    BUILD_ISO_FILE_SHA1=$(sha1sum $BUILD_ISO_FILE-livecd.iso|cut -d ' ' -f1)
+    BUILD_ISO_FILE_SHA256=$(sha256sum $BUILD_ISO_FILE-livecd.iso|cut -d ' ' -f1)
+    echo "$BUILD_ISO_FILE-livecd.iso,$BUILD_ISO_ARCH,$BUILD_ISO_FLAVOUR,$BUILD_ISO_DATE,$BUILD_ISO_FILE_MD5,$BUILD_ISO_FILE_SHA1,$BUILD_ISO_FILE_SHA256" > $BUILD_ISO_FILE-livecd.iso.checksum.csv
+    mv $BUILD_ISO_FILE-livecd.iso $BUILD_ISO_FILE-livecd.iso.checksum.csv $BUILD_ISO_FILE-livecd.iso.md5sum.txt $BUILD_ISO_FILE-livecd.iso.sha1sum.txt $BUILD_ISO_FILE-livecd.iso.sha256sum.txt ../
     BUILD_OUTISO_STATE=true
   else
     echo "INFO: livecd ISO file not found"
