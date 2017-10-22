@@ -12,5 +12,6 @@ amd64
 i386
 *.iso
 *.log
-*.checksum
+*.checksum.csv
+*sum.txt
 *.img
