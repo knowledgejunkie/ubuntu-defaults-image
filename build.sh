@@ -118,7 +118,7 @@ fi
 if [ "$BUILD_ISO_FLAVOUR" = "mate-dev" ]; then
   echo "INFO: Building NHSbuntu - Mate - Development"
   # Start build with options
-  BUILD_ISO_CMD="../ubuntu-defaults-image --ppa ubuntu-x-swat/updates --package nhsbuntu-default-settings --arch $BUILD_ISO_ARCH --release xenial --flavor ubuntu-mate --repo nhsbuntu/nhos-default-settings-dev ${BUILD_LOGOPTS}"
+  BUILD_ISO_CMD="../ubuntu-defaults-image --ppa ubuntu-x-swat/updates --package nhos-default-settings --arch $BUILD_ISO_ARCH --release xenial --flavor ubuntu-mate --repo nhsbuntu/nhos-default-settings-dev ${BUILD_LOGOPTS}"
   echo "EXEC: $BUILD_ISO_CMD"
   eval $BUILD_ISO_CMD
 fi
