@@ -16,7 +16,7 @@ TEST_ACTION=$2
 TEST_ISO_NAME=`echo "$TEST_ISO_PATH" |rev|cut -d'/' -f 1|rev|cut -d'.' -f 1`
 TEST_QCOW2_IMG=$TEST_ISO_NAME.img
 TEST_QCOW2_SIZE=16
-TEST_QEMU_RAM=4096
+TEST_QEMU_RAM=2048
 
 case "$TEST_ISO_NAME" in
   *amd64*)
@@ -42,11 +42,11 @@ case "$TEST_ACTION" in
       qemu-img create -f qcow2 $TEST_QCOW2_IMG ${TEST_QCOW2_SIZE}G > /dev/null
     fi
     echo "INFO: Starting QEMU $TEST_ACTION"
-    eval qemu-system-$TEST_CPU_ARCH -enable-kvm -m ${TEST_QEMU_RAM}M -drive file=$TEST_QCOW2_IMG,if=virtio,format=qcow2,media=disk -cdrom $TEST_ISO_PATH -vga qxl &
+    eval qemu-system-$TEST_CPU_ARCH -enable-kvm -m ${TEST_QEMU_RAM}M -drive file=$TEST_QCOW2_IMG,if=virtio,format=qcow2,media=disk -cdrom $TEST_ISO_PATH -vga qxl -name $TEST_ISO_NAME &
     ;;
   boot)
     echo "INFO: Starting QEMU $TEST_ACTION"
-    eval qemu-system-$TEST_CPU_ARCH -enable-kvm -m ${TEST_QEMU_RAM}M -drive file=$TEST_QCOW2_IMG,if=virtio,format=qcow2,media=disk -cdrom $TEST_ISO_PATH -vga qxl &
+    eval qemu-system-$TEST_CPU_ARCH -enable-kvm -m ${TEST_QEMU_RAM}M -drive file=$TEST_QCOW2_IMG,if=virtio,format=qcow2,media=disk -cdrom $TEST_ISO_PATH -vga qxl -name $TEST_ISO_NAME &
     ;;
 esac
 
