@@ -11,7 +11,11 @@
 # $ BUILDLOG=quiet BUILDARCH=amd64 BUILDFLAVOUR=gnome sudo -E ./build.sh
 
 # Set variables for script
-BUILD_TIDY=false
+if [ -n "$BUILDTIDY" ]; then
+  BUILD_TIDY=$BUILDTIDY
+else
+  BUILD_TIDY=false
+fi
 
 if [ -z "$BUILDFLAVOUR" ]; then
   BUILDFLAVOUR=gnome
