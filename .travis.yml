@@ -7,15 +7,15 @@ jobs:
   - stage: amd64
     script:
     - docker pull nhos/ubuntu-defaults-image:latest
-    - docker run --env BUILDARCH=amd64 --env BUILDFLAVOUR=gnome-nightly --rm -it -v `pwd`:`pwd`
-      -w `pwd` --name buildamd64 --privileged nhos/ubuntu-defaults-image /bin/bash
-      -c "./build.sh"
+    - docker run --env BUILDARCH=amd64 --env BUILDFLAVOUR=gnome-nightly --rm -it -v
+      `pwd`:`pwd` -w `pwd` --name buildamd64 --privileged nhos/ubuntu-defaults-image
+      /bin/bash -c "./build.sh"
   - stage: i386
     script:
     - docker pull nhos/ubuntu-defaults-image:latest
-    - docker run --env BUILDARCH=i386 --env BUILDFLAVOUR=gnome-nightly --rm -it -v `pwd`:`pwd`
-      -w `pwd` --name buildi386 --privileged nhos/ubuntu-defaults-image /bin/bash
-      -c "./build.sh"
+    - docker run --env BUILDARCH=i386 --env BUILDFLAVOUR=gnome-nightly --rm -it -v
+      `pwd`:`pwd` -w `pwd` --name buildi386 --privileged nhos/ubuntu-defaults-image
+      /bin/bash -c "./build.sh"
 env:
   global:
   - secure: XRjmzFJObjOEXWj43730QHgBc3UnwR7k6H5dwud0WYFdSY4ai0w63O2wYgkT/gfYGgMuLSzqNIHrI6ugOfhvJxt1PavqSkw/+sAfsRicwOmvPKur2g535onBXkpuflA6kor+tGoEviGAvD+g6a0LM/pT2oHBkJU1s/jTDE6eXvbOF7Cof5VTrYC4Ff8hhSy+ArV0U3gjCPok4/fVtA6fpXdyCaEWvShUEXKZf9xet+xG4+MKBdFivD+95ym3sfY+JElNhFM1mPVgbs0t4xDa72dXyC9+KLc455bhyERfkUrOEpeubI9MHlrgS20yO6FVLCjAGYHd2Nv3MgLnLdPZ1pwLEkefBlgSC0aNdXOAujc+Zd+9MRMLxhTAKczZZXnhqtuSxrSWiVZgc3smKoiDfBwRfylfj4C8ONLXGwkjticWm1porbURGgVDkV85/Ez2malDfiQNiax71lJ9p1YdJj/LKJihYVFgdH/f1JB3qcKE8Xd3g3kfxySszBABoRTcA9p0il8t5q+gLGfrMCau/U942SmrsJ7YLw23Pt2HB8VnCLFaQTuX8pEt34FL+z24L7LXoClQDKFZ5W1blhB2gb9m8bldVGucnJYrzLU4SBKKXr4sZ9UlnGw+KK832gWsYh8qKJajslLIIPFqGW2eKqO8GyrEweBsCzbc7M9FBrI=
@@ -30,4 +30,4 @@ after_success:
 - scp -o stricthostkeychecking=no NHoS-*-i386*-binary* $BUILDUSER@$BUILDHOST:/mnt/ISO/i386
 notifications:
   slack:
-    secure: r1DhvwOVcxN7JmfBkSF389VhGGUa7UDnG/M+LcxasINe2VV2ymemaxEoVbeDF4unXtwc5xImuYQUxtLs0Q+SmIMAUl0dggv/5quw5gw9hiURdmyC6JPtgDZDPAZ4GUiRFstWhqpRW1n07hHDaSkQOmFJxpTP/mtm80BamXsKYGrW6z/PekcbmDzhfWZk1zAnJTsrNuYFA+Ii9Cv6kUbwEYKlF2axArpcQ7kvOcGY/a6YB36JVxmMmNf6zlTipUka5BUyH5HAUr4eGOwiZ3Flba55/SxDPzFcWO7reLreypjeM471qFpTVOnXmaKH7G3lFunPGu/LIX2hSIUjnrM1E51cNBPeI6cfExoOsH9p0lvDtu191kHnRjWDKyTEJLmmfR5Ibe4UcsYIMxUfE1jNrks1qLxvwKHVBVeFP76RohyzJfg+x/cMQMay76l2TR2+NihaBxoZH+Wjx+2OPvhdVZzyPPWhY/iiSxORlkP7Ad4XMj4FLgbY3fLjvKmaOC+AO8h5i/ZFSoXJ4vCOSFbLFpjAR8dOp8tYAofMDjriT4zXN90Z/+oPRmA8djkEcMXmdMZAHd6hbAd+KK2MwzOHaBAqpmHZKs0gx2tUtJwAc6XKL3RhBq9GIel0IwGnRf4v9xQ3bcMZLUMeAVq/r7f9bQMXyTXI7jVmMLCw5xWEs/g=
+    secure: SQ6JWjCWk1YB5wTZ3Q+tRvyj82/NeCmAvC+afJPhKr8rXYAhN3Q/fMT35nMOHUD4HfgYT3Is/yl4rkS1L7Oqv9ZSaqTKU/XOC2uPuRiVj6kR1+HjfF0WY89zDOV4YY2/P4bjYi/8TxcdlPFqAnWpueQ+1YvQtKA72dGTNJvAdWwHMUnuwYj/wN8ybLzecXjA5vvPH2lRVzKrz939T4ezPc/xL28J1V/EG7v+Wji4OShv4WSriG9tOuSwj+L7xHmFX658b2n++G9epV3DzvYjPz3srFlbAY+3+YT9LaWAvCa5M1DOV5P8UmzHhNKRtjzHQdYvCaHs9vMxCoi/5hCQ4FHis7WX789WV0Ow9n3i29PuYsJvK7iI6ejMXAZVxISEt320PUQlTY7CgTa1A9cwaK9etOoCyIGuFGwRvvTVGiBSTsi8Ke16hfounzkQT8PqKkujY61Yi8LFPvbvGVZfBMtt7N8QIbfqcKvnWUIgtMJw227ITbttrCGHsPIuAU6ed7BuWlTDBzdOjeIFlDD+ONFl5yQ4LzvLxvUh6eD7CO/PO+Cgby04/zwCrSA0pWFVSCkjL8iRgzAWvuIC0e78vRK++anUllSeekHjK+EVfyx5jaz5Xi0eUHb70HcIvAl4Hp1AJ6Oa9tCq7MxB43CnDGd8rwlgW2/DT0ToxXsngq8=
