@@ -35,12 +35,13 @@ if [ "$BUILDLOG" = "quiet" ]
   then
     export BUILD_LOGGING="quiet"
     export BUILD_LOGSTATE="../$BUILD_ISO_FILE.log"
-    export BUILD_LOGOPTS=">> ../$BUILD_ISO_FILE.log"
+    export BUILD_LOGOPTS=">../$BUILD_ISO_FILE.log 2>&1"
     rm -f ../$BUILD_ISO_FILE
   else
     export BUILD_LOGGING="normal"
     export BUILD_LOGSTATE="console"
-    export BUILD_LOGOPTS=
+    export BUILD_LOGOPTS="|tee -a ../$BUILD_ISO_FILE.log"
+    rm -f ../$BUILD_ISO_FILE
 fi
 
 # INFO: to console
@@ -86,7 +87,7 @@ echo "INFO: Build started"
 if [ "$BUILD_ISO_FLAVOUR" = "gnome" ]; then
   echo "INFO: Building NHoS - gnome"
   # Start build with options
-  BUILD_ISO_CMD="../ubuntu-defaults-image --ppa nhsbuntu/ppa --package nhos-default-settings --arch $BUILD_ISO_ARCH --release xenial --flavor ubuntu-gnome ${BUILD_LOGOPTS}"
+  BUILD_ISO_CMD="../ubuntu-defaults-image --ppa nhsbuntu/ppa --ppa libreoffice/ppa --package nhos-default-settings --arch $BUILD_ISO_ARCH --release xenial --flavor ubuntu-gnome ${BUILD_LOGOPTS}"
   echo "EXEC: $BUILD_ISO_CMD"
   eval $BUILD_ISO_CMD
 fi
@@ -95,7 +96,7 @@ fi
 if [ "$BUILD_ISO_FLAVOUR" = "gnome-nightly" ]; then
   echo "INFO: Building NHoS - gnome-nightly"
   # Start build with options
-  BUILD_ISO_CMD="../ubuntu-defaults-image --package nhos-default-settings --arch $BUILD_ISO_ARCH --release xenial --flavor ubuntu-gnome --repo nhsbuntu/nhos-default-settings ${BUILD_LOGOPTS}"
+  BUILD_ISO_CMD="../ubuntu-defaults-image --ppa libreoffice/ppa --package nhos-default-settings --arch $BUILD_ISO_ARCH --release xenial --flavor ubuntu-gnome --repo nhsbuntu/nhos-default-settings ${BUILD_LOGOPTS}"
   echo "EXEC: $BUILD_ISO_CMD"
   eval $BUILD_ISO_CMD
 fi
@@ -104,9 +105,9 @@ fi
 if [ "$BUILD_ISO_FLAVOUR" = "gnome-test" ]; then
   echo "INFO: Building NHoS - Gnome - Test"
   # Start build with options
-  BUILD_ISO_CMD="../ubuntu-defaults-image --package nhos-default-settings --arch $BUILD_ISO_ARCH --release xenial --flavor ubuntu-gnome --repo nhsbuntu/nhos-default-settings-test ${BUILD_LOGOPTS}"
+  BUILD_ISO_CMD="../ubuntu-defaults-image --ppa libreoffice/ppa --package nhos-default-settings --arch $BUILD_ISO_ARCH --release xenial --flavor ubuntu-gnome --repo nhsbuntu/nhos-default-settings-test ${BUILD_LOGOPTS}"
   echo "EXEC: $BUILD_ISO_CMD"
-    eval $BUILD_ISO_CMD
+  eval $BUILD_ISO_CMD
 fi
 
 # For build - ubuntu-gnome & cinnamon dev
@@ -139,14 +140,10 @@ if [ -f "$BUILD_OUTISO_BINARY" ]
     echo "INFO: Renaming binary ISO file"
     mv $BUILD_OUTISO_BINARY $BUILD_ISO_FILE-binary.iso
     echo "INFO: Generating checksums"
-    # md5sum $BUILD_ISO_FILE-binary.iso > $BUILD_ISO_FILE-binary.iso.md5sum.txt
-    # sha1sum $BUILD_ISO_FILE-binary.iso > $BUILD_ISO_FILE-binary.iso.sha1sum.txt
-    # sha256sum $BUILD_ISO_FILE-binary.iso > $BUILD_ISO_FILE-binary.iso.sha256sum.txt
     BUILD_ISO_FILE_MD5=$(md5sum $BUILD_ISO_FILE-binary.iso|cut -d ' ' -f1)
     BUILD_ISO_FILE_SHA1=$(sha1sum $BUILD_ISO_FILE-binary.iso|cut -d ' ' -f1)
     BUILD_ISO_FILE_SHA256=$(sha256sum $BUILD_ISO_FILE-binary.iso|cut -d ' ' -f1)
     echo "$BUILD_ISO_FILE-binary.iso,$BUILD_ISO_ARCH,$BUILD_ISO_FLAVOUR,$BUILD_ISO_DATE,$BUILD_ISO_FILE_MD5,$BUILD_ISO_FILE_SHA1,$BUILD_ISO_FILE_SHA256" > $BUILD_ISO_FILE-binary.iso.checksum.csv
-    # mv $BUILD_ISO_FILE-binary.iso $BUILD_ISO_FILE-binary.iso.checksum.csv $BUILD_ISO_FILE-binary.iso.md5sum.txt $BUILD_ISO_FILE-binary.iso.sha1sum.txt $BUILD_ISO_FILE-binary.iso.sha256sum.txt ../
     mv $BUILD_ISO_FILE-binary.iso $BUILD_ISO_FILE-binary.iso.checksum.csv ../
     BUILD_OUTISO_STATE=true
   else
@@ -160,14 +157,10 @@ if [ -f "$BUILD_OUTISO_LIVECD" ]
     echo "INFO: Renaming livecd ISO file"
     mv $BUILD_OUTISO_LIVECD $BUILD_ISO_FILE-livecd.iso
     echo "INFO: Generating checksums"
-    # md5sum $BUILD_ISO_FILE-livecd.iso > $BUILD_ISO_FILE-livecd.iso.md5sum.txt
-    # sha1sum $BUILD_ISO_FILE-livecd.iso > $BUILD_ISO_FILE-livecd.iso.sha1sum.txt
-    # sha256sum $BUILD_ISO_FILE-livecd.iso > $BUILD_ISO_FILE-livecd.iso.sha256sum.txt
     BUILD_ISO_FILE_MD5=$(md5sum $BUILD_ISO_FILE-livecd.iso|cut -d ' ' -f1)
     BUILD_ISO_FILE_SHA1=$(sha1sum $BUILD_ISO_FILE-livecd.iso|cut -d ' ' -f1)
     BUILD_ISO_FILE_SHA256=$(sha256sum $BUILD_ISO_FILE-livecd.iso|cut -d ' ' -f1)
     echo "$BUILD_ISO_FILE-livecd.iso,$BUILD_ISO_ARCH,$BUILD_ISO_FLAVOUR,$BUILD_ISO_DATE,$BUILD_ISO_FILE_MD5,$BUILD_ISO_FILE_SHA1,$BUILD_ISO_FILE_SHA256" > $BUILD_ISO_FILE-livecd.iso.checksum.csv
-    # mv $BUILD_ISO_FILE-livecd.iso $BUILD_ISO_FILE-livecd.iso.checksum.csv $BUILD_ISO_FILE-livecd.iso.md5sum.txt $BUILD_ISO_FILE-livecd.iso.sha1sum.txt $BUILD_ISO_FILE-livecd.iso.sha256sum.txt ../
     mv $BUILD_ISO_FILE-livecd.iso $BUILD_ISO_FILE-livecd.iso.checksum.csv ../
     BUILD_OUTISO_STATE=true
   else
