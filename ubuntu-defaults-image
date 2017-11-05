@@ -256,12 +256,6 @@ fi
 # Include HTTPS for apt in bootstrap
 sed -i "s/^\\(LB_BOOTSTRAP_INCLUDE=\\).*/\\1\"gnupg libcurl3-gnutls apt-transport-https ca-certificates\"/" config/bootstrap
 
-# Set quiet
-sed -i "s/_QUIET=\"false\"/_QUIET=\"true\"/" config/common
-
-# Set color
-sed -i "s/#_COLOR=\"false\"/_COLOR=\"true\"/" config/common
-
 sed -i "s/^\\(LB_SYSLINUX_THEME=\\).*/\\1\"ubuntu-$SUITE\"/" config/binary
 
 if [ "${PACKAGE%.deb}" = "$PACKAGE" ]; then
