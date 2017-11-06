@@ -87,7 +87,7 @@ echo "INFO: Build started"
 if [ "$BUILD_ISO_FLAVOUR" = "gnome" ]; then
   echo "INFO: Building NHoS - gnome"
   # Start build with options
-  BUILD_ISO_CMD="../ubuntu-defaults-image --ppa nhsbuntu/ppa --ppa libreoffice/ppa --package nhos-default-settings --arch $BUILD_ISO_ARCH --release xenial --flavor ubuntu-gnome ${BUILD_LOGOPTS}"
+  BUILD_ISO_CMD="../ubuntu-defaults-image --ppa nhos/ppa --ppa libreoffice/ppa --package nhos-default-settings --arch $BUILD_ISO_ARCH --release xenial --flavor ubuntu-gnome ${BUILD_LOGOPTS}"
   echo "EXEC: $BUILD_ISO_CMD"
   eval $BUILD_ISO_CMD
 fi
@@ -96,7 +96,7 @@ fi
 if [ "$BUILD_ISO_FLAVOUR" = "gnome-nightly" ]; then
   echo "INFO: Building NHoS - gnome-nightly"
   # Start build with options
-  BUILD_ISO_CMD="../ubuntu-defaults-image --ppa libreoffice/ppa --package nhos-default-settings --arch $BUILD_ISO_ARCH --release xenial --flavor ubuntu-gnome --repo nhsbuntu/nhos-default-settings ${BUILD_LOGOPTS}"
+  BUILD_ISO_CMD="../ubuntu-defaults-image --ppa libreoffice/ppa --package nhos-default-settings --arch $BUILD_ISO_ARCH --release xenial --flavor ubuntu-gnome --repo nhos/nhos-default-settings ${BUILD_LOGOPTS}"
   echo "EXEC: $BUILD_ISO_CMD"
   eval $BUILD_ISO_CMD
 fi
@@ -105,7 +105,7 @@ fi
 if [ "$BUILD_ISO_FLAVOUR" = "gnome-test" ]; then
   echo "INFO: Building NHoS - Gnome - Test"
   # Start build with options
-  BUILD_ISO_CMD="../ubuntu-defaults-image --ppa libreoffice/ppa --package nhos-default-settings --arch $BUILD_ISO_ARCH --release xenial --flavor ubuntu-gnome --repo nhsbuntu/nhos-default-settings-test ${BUILD_LOGOPTS}"
+  BUILD_ISO_CMD="../ubuntu-defaults-image --ppa libreoffice/ppa --package nhos-default-settings --arch $BUILD_ISO_ARCH --release xenial --flavor ubuntu-gnome --repo nhos/nhos-default-settings-test ${BUILD_LOGOPTS}"
   echo "EXEC: $BUILD_ISO_CMD"
   eval $BUILD_ISO_CMD
 fi
@@ -114,7 +114,7 @@ fi
 if [ "$BUILD_ISO_FLAVOUR" = "cinnamon-dev" ]; then
   echo "INFO: Building NHoS - Cinnamon - Dev"
   # Start build with options
-  BUILD_ISO_CMD="../ubuntu-defaults-image --ppa embrosyn/cinnamon --package nhos-default-settings --xpackage cinnamon --arch $BUILD_ISO_ARCH --release xenial --flavor ubuntu-gnome --repo nhsbuntu/nhos-default-settings-dev ${BUILD_LOGOPTS}"
+  BUILD_ISO_CMD="../ubuntu-defaults-image --ppa embrosyn/cinnamon --package nhos-default-settings --xpackage cinnamon --arch $BUILD_ISO_ARCH --release xenial --flavor ubuntu-gnome --repo nhos/nhos-default-settings-dev ${BUILD_LOGOPTS}"
   echo "EXEC: $BUILD_ISO_CMD"
   eval $BUILD_ISO_CMD
 fi
