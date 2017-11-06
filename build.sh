@@ -140,11 +140,15 @@ if [ -f "$BUILD_OUTISO_BINARY" ]
     echo "INFO: Renaming binary ISO file"
     mv $BUILD_OUTISO_BINARY $BUILD_ISO_FILE-binary.iso
     echo "INFO: Generating checksums"
+    md5sum $BUILD_ISO_FILE-binary.iso > $BUILD_ISO_FILE-binary.iso.md5sum.txt
+    sha1sum $BUILD_ISO_FILE-binary.iso > $BUILD_ISO_FILE-binary.iso.sha1sum.txt
+    sha256sum $BUILD_ISO_FILE-binary.iso > $BUILD_ISO_FILE-binary.iso.sha256sum.txt
     BUILD_ISO_FILE_MD5=$(md5sum $BUILD_ISO_FILE-binary.iso|cut -d ' ' -f1)
     BUILD_ISO_FILE_SHA1=$(sha1sum $BUILD_ISO_FILE-binary.iso|cut -d ' ' -f1)
     BUILD_ISO_FILE_SHA256=$(sha256sum $BUILD_ISO_FILE-binary.iso|cut -d ' ' -f1)
     echo "$BUILD_ISO_FILE-binary.iso,$BUILD_ISO_ARCH,$BUILD_ISO_FLAVOUR,$BUILD_ISO_DATE,$BUILD_ISO_FILE_MD5,$BUILD_ISO_FILE_SHA1,$BUILD_ISO_FILE_SHA256" > $BUILD_ISO_FILE-binary.iso.checksum.csv
-    mv $BUILD_ISO_FILE-binary.iso $BUILD_ISO_FILE-binary.iso.checksum.csv ../
+    mv $BUILD_ISO_FILE-binary.iso $BUILD_ISO_FILE-binary.iso.checksum.csv $BUILD_ISO_FILE-binary.iso.md5sum.txt $BUILD_ISO_FILE-binary.iso.sha1sum.txt $BUILD_ISO_FILE-binary.iso.sha256sum.txt ../
+    # mv $BUILD_ISO_FILE-binary.iso $BUILD_ISO_FILE-binary.iso.checksum.csv ../
     BUILD_OUTISO_STATE=true
   else
     echo "INFO: binary ISO file not found"
@@ -157,11 +161,15 @@ if [ -f "$BUILD_OUTISO_LIVECD" ]
     echo "INFO: Renaming livecd ISO file"
     mv $BUILD_OUTISO_LIVECD $BUILD_ISO_FILE-livecd.iso
     echo "INFO: Generating checksums"
+    md5sum $BUILD_ISO_FILE-livecd.iso > $BUILD_ISO_FILE-livecd.iso.md5sum.txt
+    sha1sum $BUILD_ISO_FILE-livecd.iso > $BUILD_ISO_FILE-livecd.iso.sha1sum.txt
+    sha256sum $BUILD_ISO_FILE-livecd.iso > $BUILD_ISO_FILE-livecd.iso.sha256sum.txt
     BUILD_ISO_FILE_MD5=$(md5sum $BUILD_ISO_FILE-livecd.iso|cut -d ' ' -f1)
     BUILD_ISO_FILE_SHA1=$(sha1sum $BUILD_ISO_FILE-livecd.iso|cut -d ' ' -f1)
     BUILD_ISO_FILE_SHA256=$(sha256sum $BUILD_ISO_FILE-livecd.iso|cut -d ' ' -f1)
     echo "$BUILD_ISO_FILE-livecd.iso,$BUILD_ISO_ARCH,$BUILD_ISO_FLAVOUR,$BUILD_ISO_DATE,$BUILD_ISO_FILE_MD5,$BUILD_ISO_FILE_SHA1,$BUILD_ISO_FILE_SHA256" > $BUILD_ISO_FILE-livecd.iso.checksum.csv
-    mv $BUILD_ISO_FILE-livecd.iso $BUILD_ISO_FILE-livecd.iso.checksum.csv ../
+    mv $BUILD_ISO_FILE-livecd.iso $BUILD_ISO_FILE-livecd.iso.checksum.csv $BUILD_ISO_FILE-livecd.iso.md5sum.txt $BUILD_ISO_FILE-livecd.iso.sha1sum.txt $BUILD_ISO_FILE-livecd.iso.sha256sum.txt ../
+    # mv $BUILD_ISO_FILE-livecd.iso $BUILD_ISO_FILE-livecd.iso.checksum.csv ../
     BUILD_OUTISO_STATE=true
   else
     echo "INFO: livecd ISO file not found"
