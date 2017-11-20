@@ -28,6 +28,7 @@ after_success:
 - ssh-add deploy_rsa
 - scp -o stricthostkeychecking=no NHoS-*-amd64*-binary* $BUILDUSER@$BUILDHOST:/mnt/ISO/amd64
 - scp -o stricthostkeychecking=no NHoS-*-i386*-binary* $BUILDUSER@$BUILDHOST:/mnt/ISO/i386
+- ssh $BUILDUSER@$BUILDHOST '~/gnome-nightly.sh'
 notifications:
   slack:
     secure: SQ6JWjCWk1YB5wTZ3Q+tRvyj82/NeCmAvC+afJPhKr8rXYAhN3Q/fMT35nMOHUD4HfgYT3Is/yl4rkS1L7Oqv9ZSaqTKU/XOC2uPuRiVj6kR1+HjfF0WY89zDOV4YY2/P4bjYi/8TxcdlPFqAnWpueQ+1YvQtKA72dGTNJvAdWwHMUnuwYj/wN8ybLzecXjA5vvPH2lRVzKrz939T4ezPc/xL28J1V/EG7v+Wji4OShv4WSriG9tOuSwj+L7xHmFX658b2n++G9epV3DzvYjPz3srFlbAY+3+YT9LaWAvCa5M1DOV5P8UmzHhNKRtjzHQdYvCaHs9vMxCoi/5hCQ4FHis7WX789WV0Ow9n3i29PuYsJvK7iI6ejMXAZVxISEt320PUQlTY7CgTa1A9cwaK9etOoCyIGuFGwRvvTVGiBSTsi8Ke16hfounzkQT8PqKkujY61Yi8LFPvbvGVZfBMtt7N8QIbfqcKvnWUIgtMJw227ITbttrCGHsPIuAU6ed7BuWlTDBzdOjeIFlDD+ONFl5yQ4LzvLxvUh6eD7CO/PO+Cgby04/zwCrSA0pWFVSCkjL8iRgzAWvuIC0e78vRK++anUllSeekHjK+EVfyx5jaz5Xi0eUHb70HcIvAl4Hp1AJ6Oa9tCq7MxB43CnDGd8rwlgW2/DT0ToxXsngq8=
