@@ -6,28 +6,28 @@ Based on [ubuntu-defaults-builder](https://launchpad.net/ubuntu/xenial/+package/
 
 ## Getting started
 
-Basic usage follows the manpage for the source package. Here's an example using the NHSbuntu PPA and defaults settings package.
+Basic usage follows the manpage for the source package. Here's an example using the NHoS PPA and defaults settings package.
 
 ```
-./ubuntu-defaults-image --ppa nhsbuntu/ppa --release xenial --flavor ubuntu-gnome --package nhos-default-settings
+./ubuntu-defaults-image --ppa nhos/ppa --release xenial --flavor ubuntu-gnome --package nhos-default-settings
 ```
 
 Specify a repository on packagecloud.io with `--repo organisation/reponame`
 
 ```
-./ubuntu-defaults-image --repo nhsbuntu/nhsbuntu-default-settings --release xenial --flavor ubuntu-gnome --package nhos-default-settings
+./ubuntu-defaults-image --repo nhos/nhos-default-settings --release xenial --flavor ubuntu-gnome --package nhos-default-settings
 ```
 
 Specify additional PPAs with `--ppa name/ppa`
 
 ```
-./ubuntu-defaults-image --repo nhsbuntu/nhsbuntu-default-settings --release xenial --flavor ubuntu-gnome --package nhos-default-settings --ppa libreoffice/ppa
+./ubuntu-defaults-image --repo nhos/nhos-default-settings --release xenial --flavor ubuntu-gnome --package nhos-default-settings --ppa libreoffice/ppa
 ```
 
 Specify additional packages `--xpackage packagename`
 
 ```
-./ubuntu-defaults-image --repo nhsbuntu/nhsbuntu-default-settings --release xenial --flavor ubuntu-gnome --package nhos-default-settings --ppa libreoffice/ppa --xpackage libreoffice-style-breeze
+./ubuntu-defaults-image --repo nhos/nhos-default-settings --release xenial --flavor ubuntu-gnome --package nhos-default-settings --ppa libreoffice/ppa --xpackage libreoffice-style-breeze
 ```
 
 ## Create NHoS ISOs - command line
@@ -50,7 +50,7 @@ The helper script `build.sh` patches the live-build configuration file `lb_binar
 
 ## Create NHoS ISOs - Dockerised
 
-You can use our Docker container to build NHSbuntu ISOs.
+You can use our Docker container to build NHoS ISOs.
 
 ```
 docker pull nhos/ubuntu-defaults-image:latest
